@@ -1,0 +1,86 @@
+﻿
+@model  TheTextingDemo.Models.ConfigurationSettings
+
+
+<h2>TheTexting SMS GateWay Demo</h2>
+<style type="text/css">
+    .required:after {
+        padding-left: 10px;
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@Html.ValidationSummary(true, "Correct The Errors first.")
+@using (Html.BeginForm("SendSMS", "Home", FormMethod.Post))
+{
+
+    <div>
+        <fieldset>
+            <legend>Account Information</legend>
+            <div>
+                <h3>Note: all the fields with (*) are required fields.</h3>
+
+                @if (TempData["Success"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                }
+            </div>
+            <div>
+                @Html.LabelFor(model => model.API_KEY, new { @class = "required" })
+            </div>
+            <div>
+
+                @Html.TextBoxFor(model => model.API_KEY)
+                @Html.ValidationMessageFor(model => model.API_KEY)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.API_SECRET, new { @class = "required" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.API_SECRET)
+                @Html.ValidationMessageFor(model => model.API_SECRET)
+            </div>
+            <div>
+
+                @Html.LabelFor(a => a.To_Number, new { @class = "required" })
+
+
+            </div>
+            <div>
+
+                @Html.TextBoxFor(a => a.To_Number)
+
+
+                @Html.ValidationMessageFor(a => a.To_Number)
+            </div>
+            <div>
+                @Html.LabelFor(a => a.TextMessage, new { @class = "required" })
+
+
+            </div>
+            <div>
+                @Html.TextAreaFor(a => a.TextMessage, new { @Value = "test" })
+
+                @Html.ValidationMessageFor(a => a.TextMessage)
+            </div>
+
+            <br />
+
+
+            <input id="Submit" type="submit" value="SendSMS" />
+            <br /><br />
+            <h4 style="display:inline; color:red;">
+                Note:
+                <p style="display:inline;">Number must be international format like for USA : 13306807200 (where prefix 1 is USA country dialing code)</p>
+            </h4>
+           
+
+        </fieldset>
+
+
+    </div>
+
+}
